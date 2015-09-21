@@ -31,7 +31,8 @@ public class TeamReader
     // League
     League league = new League();
     JSONObject jleague = (JSONObject)jtmp.get("league");
-    league.setLeagueId(((Long)jleague.get("leagueId")).intValue());
+    int leagueId = ((Long)jleague.get("leagueId")).intValue();
+    league.setLeagueId(leagueId);
     league.setName((String) jleague.get("name"));
     league.setAbbreviation((String) jleague.get("abbreviation"));
     league.setDisplayName((String) jleague.get("displayName"));

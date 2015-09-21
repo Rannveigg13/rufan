@@ -1,6 +1,7 @@
 package is.ru.honn.rufan.service;
 
 import is.ru.honn.rufan.domain.Player;
+import is.ru.honn.rufan.domain.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class PlayerServiceStub implements PlayerService
 
     Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
     private List<Player> players = new ArrayList<Player>();
+    TeamServiceStub tss = new TeamServiceStub();
 
     /***
      * Finds and returns the player with the given player ID,
@@ -46,16 +48,20 @@ public class PlayerServiceStub implements PlayerService
     }
 
 
-
+    /***
+     * Finds and returns a list of players associated with the given team abbreviation
+     * @param teamAbbreviation The team abbreviation to filter players with
+     * @return A list of players associated with the given team abbreviation
+     */
     public List<Player> getPlayersByTeam(String teamAbbreviation){
-
+        Team team = tss.getTeamByAbbreviation(teamAbbreviation);
+        List<Player> result = new ArrayList<Player>();
         for(Player p : players){
-
-            if(p.get == teamAbbreviation){
-                teamAbbPlayers.add(p);
+            if(p.getTeamId() == team.getTeamId()){
+                result.add(p);
             }
         }
-        return teamPlayers;
+        return result;
     }
 
     /***

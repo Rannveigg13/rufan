@@ -9,15 +9,9 @@ public class Team
   private String displayName;
   protected Venue venue;
 
-  public int getTeamId()
-  {
-    return teamId;
-  }
+  public int getTeamId() { return teamId; }
 
-  public void setTeamId(int teamId)
-  {
-    this.teamId = teamId;
-  }
+  public void setTeamId(int teamId) { this.teamId = teamId;}
 
   public String getLocation()
   {
