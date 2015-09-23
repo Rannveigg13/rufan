@@ -2,6 +2,7 @@ package is.ru.honn.rufan.reader;
 
 import org.json.simple.JSONObject;
 
+import javax.ws.rs.ProcessingException;
 import java.net.URI;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,12 +23,16 @@ abstract public class AbstractReader implements Reader {
     private String uri;
 
     public Object read() throws ReaderException{
+
         if(readHandler == null){
             throw new ReaderException("readHandler must be set");
         }
 
-        String json = new ClientRequest().getRequest(uri);
-        if(json == null || json.contains("404 Not Found")){
+        String json = "";
+        try{
+            json = new ClientRequest().getRequest(uri);
+        }
+        catch(ProcessingException e){
             String[] segments = uri.split("/");
             String fileName = segments[segments.length-1];
             String origin = "http://";
@@ -36,6 +41,7 @@ abstract public class AbstractReader implements Reader {
             }
             throw new ReaderFileException(fileName + " " + origin);
         }
+
         return parse(json);
     }
 

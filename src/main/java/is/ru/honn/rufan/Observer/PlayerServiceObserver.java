@@ -17,6 +17,8 @@ public class PlayerServiceObserver extends Observer {
     /** The logger that logs changes for this observer. */
     private Logger log = Logger.getLogger(Observer.class.getName());
 
+    public PlayerServiceObserver(){}
+
     /**
      * The constructor for a PlayerServiceObserver.
      * @param subject The subject to observe.
