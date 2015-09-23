@@ -1,7 +1,7 @@
 package is.ru.honn.rufan.service;
 
-import is.ru.honn.rufan.Observer.PlayerServiceSubject;
-import is.ru.honn.rufan.Observer.Subject;
+import is.ru.honn.rufan.observer.PlayerServiceSubject;
+import is.ru.honn.rufan.observer.Subject;
 import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.domain.Team;
 

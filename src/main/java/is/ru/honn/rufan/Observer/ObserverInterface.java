@@ -1,4 +1,4 @@
-package is.ru.honn.rufan.Observer;
+package is.ru.honn.rufan.observer;
 
 /**
  * @author Hrafnkell Baldursson
