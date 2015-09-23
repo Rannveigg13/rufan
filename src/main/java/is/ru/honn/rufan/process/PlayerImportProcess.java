@@ -57,8 +57,8 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         catch(ReaderFileException e){
             // If a reader file exception is caught, display an
             // error message with the file name and origin of the file
-            // which are split by '/' in the message
-            String[] segments = e.getMessage().split("/");
+            // which are split by whitespace in the message
+            String[] segments = e.getMessage().split(" ");
             logger.logFileError(segments[0], segments[1]);
         }
         catch(ReaderException e){
@@ -96,6 +96,8 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
      */
     @Override
     public void afterProcess() {
-        logger.logMessage("processstartdone", players.size());
+        if(players != null){
+            logger.logMessage("processstartdone", players.size());
+        }
     }
 }

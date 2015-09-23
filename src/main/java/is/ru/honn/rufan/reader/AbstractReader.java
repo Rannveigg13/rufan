@@ -27,14 +27,14 @@ abstract public class AbstractReader implements Reader {
         }
 
         String json = new ClientRequest().getRequest(uri);
-        if(json == null){
+        if(json == null || json.contains("404 Not Found")){
             String[] segments = uri.split("/");
             String fileName = segments[segments.length-1];
             String origin = "http://";
             for(int i = 2; i < segments.length-1; i++){
                 origin += segments[i] + "/";
             }
-            throw new ReaderFileException(fileName + "/" + origin);
+            throw new ReaderFileException(fileName + " " + origin);
         }
         return parse(json);
     }
