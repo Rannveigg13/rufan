@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface TeamService
 {
-    int addTeam(int leagueId, Team team) throws ServiceException;
+    int addTeam(Integer leagueId, Team team) throws ServiceException;
     List<Team> getTeams(int leagueId);
     Team getTeamByAbbreviation(String abbreviation);
 }

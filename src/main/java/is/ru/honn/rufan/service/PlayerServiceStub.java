@@ -1,5 +1,7 @@
 package is.ru.honn.rufan.service;
 
+import is.ru.honn.rufan.observer.Observer;
+import is.ru.honn.rufan.observer.PlayerServiceObserver;
 import is.ru.honn.rufan.observer.PlayerServiceSubject;
 import is.ru.honn.rufan.observer.Subject;
 import is.ru.honn.rufan.domain.Player;
@@ -16,11 +18,16 @@ import java.util.logging.Logger;
  */
 public class PlayerServiceStub implements PlayerService
 {
-    Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
+    private Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
     private List<Player> players = new ArrayList<Player>();
-    TeamServiceStub tss = new TeamServiceStub();
-    Subject subject = new PlayerServiceSubject();
+    private TeamServiceStub tss = new TeamServiceStub();
+    private Subject subject = new PlayerServiceSubject();
+    private Observer observer;
 
+
+    public void addObserver(){
+        observer = new PlayerServiceObserver(subject);
+    }
     /***
      * Finds and returns the player with the given player ID,
      * if the player doesn't exist; null is returned
@@ -76,10 +83,28 @@ public class PlayerServiceStub implements PlayerService
      */
     public int addPlayer(Player player) throws ServiceException{
 
-        if(player == null) throw new ServiceException("Player is not assigned");
-        if(player.getFirstName() == null) player.setFirstName("");
-        if((Integer)player.getPlayerId() == null) throw new ServiceException("Player " + player.getFirstName() + " " + player.getLastName() + " playerId cannot be null");
-        if((Integer)player.getTeamId() == null ) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " teamId cannot be null");
+        String err = "";
+        boolean error = false;
+        if(player == null){
+            err = "Player cannot be null";
+            error = true;
+        }
+        else if(player.getFirstName() == null){
+            player.setFirstName("");
+        }
+        else if(player.getLastName() == null){
+            err = "Player " + String.valueOf(player.getPlayerId()) + " lastName cannot be null";
+            error = true;
+        }
+        else if(player.getTeamId() == null ){
+            err = "Player " + String.valueOf(player.getPlayerId()) +  " teamId cannot be null";
+            error = true;
+        }
+
+        if(error){
+            log.severe(err);
+            throw new ServiceException(err);
+        }
 
 
         for(Player p: players)

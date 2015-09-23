@@ -79,6 +79,10 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         ApplicationContext serviceResource = new FileSystemXmlApplicationContext("classpath:service.xml");
         playerService = (PlayerServiceStub) serviceResource.getBean("playerService");
 
+        // Adding an observer to the playerServices subject.
+        // When the service adds a new player, the observer will be notified
+        playerService.addObserver();
+
         // Getting a reader from a reader factory
         ReaderFactory readerFactory = new ReaderFactory();
         playerReader = readerFactory.getReader("playerReader");

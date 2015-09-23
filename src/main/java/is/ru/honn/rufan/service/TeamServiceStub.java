@@ -24,17 +24,42 @@ public class TeamServiceStub implements TeamService
      * @return The index of the added team in the list of teams in the league with the league ID
      * @throws ServiceException if the given values do not exist or are null
      */
-    public int addTeam(int leagueId, Team team) throws ServiceException{
+    public int addTeam(Integer leagueId, Team team) throws ServiceException{
 
-        // Dummy data
-        if(leagueTeamRelation.isEmpty()) leagueTeamRelation.put(39,new ArrayList<Team>());
-
+        String err = "";
+        boolean error = false;
         // Error checking the team and league id
         if(team == null){
-            String msg = "Team is not assigned.";
-            log.info(msg);
-            throw new ServiceException(msg);
+            err = "Team cannot be null";
+            error = true;
         }
+        else if(leagueId == null){
+            err = "Team leagueId cannot be null";
+            error = true;
+        }
+        else if(team.getTeamId() == null) {
+            err = "TeamId cannot be null";
+            error = true;
+        }
+        else if(team.getAbbreviation() == null) {
+            err = "Team abbreviation cannot be null";
+            error = true;
+        }
+        else if(team.getDisplayName() == null) {
+            err = "Team display name cannot be null";
+            error = true;
+        }
+
+        if(error){
+            log.severe(err);
+            throw new ServiceException(err);
+        }
+
+        // Initialize league if it does not exist
+        if(leagueTeamRelation.isEmpty()){
+            leagueTeamRelation.put(leagueId, new ArrayList<Team>());
+        }
+
         if(!leagueTeamRelation.containsKey(leagueId)){
             String msg = "League ID: '" + leagueId + "' does not exist.";
             log.info(msg);

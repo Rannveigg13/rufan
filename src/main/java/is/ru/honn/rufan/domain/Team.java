@@ -3,13 +3,21 @@ package is.ru.honn.rufan.domain;
 
 public class Team
 {
-  private int teamId;
+  private Integer teamId;
   private String location;
   private String abbreviation;
   private String displayName;
   protected Venue venue;
 
-  public int getTeamId() { return teamId; }
+  public Team(){}
+
+  public Team(Integer teamId, String abbreviation, String displayName){
+    this.teamId = teamId;
+    this.abbreviation = abbreviation;
+    this.displayName = displayName;
+  }
+
+  public Integer getTeamId() { return teamId; }
 
   public void setTeamId(int teamId) { this.teamId = teamId;}
 

@@ -15,7 +15,7 @@ import java.util.List;
 public class Player {
 
     protected int playerId;
-    protected int teamId;
+    protected Integer teamId;
     protected String firstName;
     protected String lastName;
     protected int height;
@@ -24,6 +24,14 @@ public class Player {
     protected Country nationality;
     protected List<Position> positions = new ArrayList<Position>();
 
+    public Player(){}
+
+    public Player(int playerId, Integer teamId, String firstName, String lastName){
+        this.teamId = teamId;
+        this.playerId = playerId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
     /**
      * Gets the player ID
      * @return This player's ID
@@ -70,7 +78,7 @@ public class Player {
      * Gets the players team ID
      * @return This players team ID
      */
-    public  int getTeamId() { return  teamId; }
+    public Integer getTeamId() { return  teamId; }
 
     /**
      * Gets the players position
