@@ -8,6 +8,8 @@ import java.util.List;
  * @author Hrafnkell Baldursson
  * @author Rannveig Gudmundsdottir
  * @version 1.0 22/9/2015.
+ *
+ * This class represents an interface for Team Service
  */
 public interface TeamService
 {

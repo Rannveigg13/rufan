@@ -24,7 +24,9 @@ public class PlayerServiceStub implements PlayerService
     private Subject subject = new PlayerServiceSubject();
     private Observer observer;
 
-
+    /**
+     * Adds an observer to the subject
+     */
     public void addObserver(){
         observer = new PlayerServiceObserver(subject);
     }

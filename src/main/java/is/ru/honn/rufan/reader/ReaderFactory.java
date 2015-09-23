@@ -7,6 +7,8 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author Hrafnkell Baldursson
  * @author Rannveig Gudmundsdottir
  * @version 1.0 22/9/2015.
+ *
+ * This class represents the Reader Factory
  */
 public class ReaderFactory {
     /***
