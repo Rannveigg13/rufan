@@ -2,6 +2,7 @@ package is.ru.honn.rufan.reader;
 
 import org.json.simple.JSONObject;
 
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,9 +13,8 @@ import java.util.Locale;
 
 /**
  * @author Hrafnkell Baldursson
- * @author Rannveig Guðmundsdóttir
- * @date 22/9/2015.
- * @version 1.0
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
  */
 abstract public class AbstractReader implements Reader {
 
@@ -23,9 +23,19 @@ abstract public class AbstractReader implements Reader {
 
     public Object read() throws ReaderException{
         if(readHandler == null){
-            throw new ReaderException("ReadHandler must be set");
+            throw new ReaderException("readHandler must be set");
         }
+
         String json = new ClientRequest().getRequest(uri);
+        if(json == null){
+            String[] segments = uri.split("/");
+            String fileName = segments[segments.length-1];
+            String origin = "http://";
+            for(int i = 2; i < segments.length-1; i++){
+                origin += segments[i] + "/";
+            }
+            throw new ReaderFileException(fileName + "/" + origin);
+        }
         return parse(json);
     }
 

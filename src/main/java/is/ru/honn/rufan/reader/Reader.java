@@ -2,9 +2,8 @@ package is.ru.honn.rufan.reader;
 
 /**
  * @author Hrafnkell Baldursson
- * @author Rannveig Guðmundsdóttir
- * @date 22/9/2015.
- * @version 1.0
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
  */
 public interface Reader {
     Object read() throws ReaderException;

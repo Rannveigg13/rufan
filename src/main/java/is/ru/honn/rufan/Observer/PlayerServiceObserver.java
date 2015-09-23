@@ -6,29 +6,29 @@ import java.util.logging.Logger;
 
 /**
  * @author Hrafnkell Baldursson
- * @author Rannveig Guðmundsdóttir
- * @date 22/9/2015.
- * @version 1.0
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
  *
- * This class represents an observer that observes a player service
+ * This class represents a PlayerService observer that observes
+ * a PlayerService subject.
  */
 public class PlayerServiceObserver extends Observer {
 
-    // The logger
+    /** The logger that logs changes for this observer. */
     private Logger log = Logger.getLogger(Observer.class.getName());
 
-    /***
+    /**
      * The constructor for a PlayerServiceObserver.
-     * @param subject The subject to observe
+     * @param subject The subject to observe.
      */
     public PlayerServiceObserver(Subject subject){
         this.subject = subject;
-        this.subject.addObserver(this);
+        this.subject.registerObserver(this);
     }
 
-    /***
-     * Logs a message for this Observer, containing the full name of the player
-     * that has been added by the Subject
+    /**
+     * This method notifies this observer that a new player
+     * has been added to the subject.
      */
     @Override
     public void update() {
@@ -36,7 +36,12 @@ public class PlayerServiceObserver extends Observer {
         logUpdateMessage(newest);
     }
 
+    /**
+     * Logs a message for this PlayerService observer,
+     * containing the full name of the player that has been
+     * added to the PlayerService subject.
+     */
     private void logUpdateMessage(Player newest){
-        log.info("New player added: " + newest.getFirstName() + " " + newest.getLastName());
+        log.info("New player added to PlayerService subject: " + newest.getFirstName() + " " + newest.getLastName());
     }
 }

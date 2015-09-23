@@ -2,14 +2,13 @@ package is.ru.honn.rufan.Observer;
 
 /**
  * @author Hrafnkell Baldursson
- * @author Rannveig Guðmundsdóttir
- * @date 22/9/2015.
- * @version 1.0
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
  *
  * This abstract class represents an observer which is subscribed
  * to a subject
  */
-public abstract  class Observer {
+public abstract class Observer implements ObserverInterface {
     /***
      * The subject that the observer is subscribed to
      */
@@ -17,7 +16,8 @@ public abstract  class Observer {
 
     /***
      * The function that is called to notify the observer
-     * of a change on the subjects side
+     * of a change on the subjects side. The implemented
+     * function should display some kind of update message.
      */
     public abstract void update();
 }

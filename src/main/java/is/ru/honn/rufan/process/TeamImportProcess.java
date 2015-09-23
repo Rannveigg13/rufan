@@ -13,9 +13,8 @@ import java.util.ArrayList;
 
 /**
  * @author Hrafnkell Baldursson
- * @author Rannveig Guðmundsdóttir
- * @date 22/9/2015.
- * @version 1.0
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
  */
 public class TeamImportProcess extends RuAbstractProcess implements ReadHandler
 {
@@ -24,7 +23,7 @@ public class TeamImportProcess extends RuAbstractProcess implements ReadHandler
     protected Reader teamReader;
     protected TeamService teamService;
     protected ReaderFactory readerFactory;
-    private ProcessMessagePrinter printer;
+    private ProcessMessageLogger logger;
 
     public void read(int count, Object object) {
         this.count = count;
@@ -33,13 +32,13 @@ public class TeamImportProcess extends RuAbstractProcess implements ReadHandler
 
     @Override
     public void startProcess() {
-        printer.printMessage("processstart");
+        logger.logMessage("processstart");
         try{
             league = (League) teamReader.read();
         }
         catch(ReaderException e){
-            printer.logSevere("teamReader read error");
-            printer.logSevere(e.getMessage());
+            logger.logSevere("teamReader read error");
+            logger.logSevere(e.getMessage());
         }
     }
 
@@ -55,14 +54,14 @@ public class TeamImportProcess extends RuAbstractProcess implements ReadHandler
         teamReader.setReadHandler(this);
         teamReader.setURI(getProcessContext().getImportURL());
 
-        printer = new ProcessMessagePrinter(this.getClass().getName(), getProcessContext().getProcessName());
-        printer.printMessage("processbefore");
+        logger = new ProcessMessageLogger(this.getClass().getName(), getProcessContext().getProcessName());
+        logger.logMessage("processbefore");
     }
 
     @Override
     public void afterProcess() {
 
-        printer.printMessage("processstartdone", count);
+        logger.logMessage("processstartdone", count);
 
         ArrayList<Team> teams = (ArrayList<Team>) teamService.getTeams(league.getLeagueId());
         for(Team t : teams){

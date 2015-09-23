@@ -1,5 +1,7 @@
 package is.ru.honn.rufan.domain;
 
+import com.sun.istack.internal.Nullable;
+
 public class League
 {
   private int leagueId;

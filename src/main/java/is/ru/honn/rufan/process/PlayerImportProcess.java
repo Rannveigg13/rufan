@@ -11,55 +11,91 @@ import java.util.ArrayList;
 
 /**
  * @author Hrafnkell Baldursson
- * @author Rannveig Guðmundsdóttir
- * @date 22/9/2015.
- * @version 1.0
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
+ *
+ * This class represents a process which imports Player
+ * objects and logs them.
  */
 public class PlayerImportProcess extends RuAbstractProcess implements ReadHandler
 {
-    protected Reader playerReader;
-    protected PlayerService playerService;
-    protected ReaderFactory readerFactory;
-    protected int count;
-    private ArrayList<Player> players;
-    private ProcessMessagePrinter printer;
+    /** The reader for this process */
+    private Reader playerReader;
 
+    /** The player service for this process */
+    private PlayerService playerService;
+
+    /** The array list of players for this process */
+    private ArrayList<Player> players;
+
+    /** The printer for this process. Handles all logging */
+    private ProcessMessageLogger logger;
+
+    /**
+     * This method adds a single player to the player service.
+     * @param count The number of the player.
+     * @param object The object that has to be read.
+     */
     public void read(int count, Object object) {
-        this.count = count;
         playerService.addPlayer((Player) object);
     }
 
+    /**
+     * This method calls the player reader to make it read
+     * all of the players to be added to the player service
+     */
     @Override
     public void startProcess() {
-        printer.printMessage("processstart");
+
+        // Log information about that the process has started
+        logger.logMessage("processstart");
+
         try{
+            // Read all players and store them in an array list
             players = ((ArrayList<Player>) playerReader.read());
         }
-        catch(ReaderException e){
-            printer.printMessage("processreaderror");
-            printer.logSevere("playerReader read error");
-            printer.logSevere(e.getMessage());
+        catch(ReaderFileException e){
+            // If a reader file exception is caught, display an
+            // error message with the file name and origin of the file
+            // which are split by '/' in the message
+            String[] segments = e.getMessage().split("/");
+            logger.logFileError(segments[0], segments[1]);
         }
+        catch(ReaderException e){
+            // If a reader exception is caught, display an error message
+            logger.logSevere(e.getMessage());
+        }
+
     }
 
+    /**
+     * This method sets up all member variables needed
+     * for the process.
+     */
     @Override
     public void beforeProcess() {
+
         // Getting playerService
         ApplicationContext serviceResource = new FileSystemXmlApplicationContext("classpath:service.xml");
         playerService = (PlayerServiceStub) serviceResource.getBean("playerService");
 
-        // Getting a reader from a readerfactory
-        readerFactory = new ReaderFactory();
+        // Getting a reader from a reader factory
+        ReaderFactory readerFactory = new ReaderFactory();
         playerReader = readerFactory.getReader("playerReader");
         playerReader.setReadHandler(this);
         playerReader.setURI(getProcessContext().getImportURL());
 
-        printer = new ProcessMessagePrinter(this.getClass().getName(), getProcessContext().getProcessName());
-        printer.printMessage("processbefore");
+        // Log information about the process
+        logger = new ProcessMessageLogger(this.getClass().getName(), getProcessContext().getProcessName());
+        logger.logMessage("processbefore");
     }
 
+    /**
+     * This method calls the printer to log information
+     * about the number of players successfully read.
+     */
     @Override
     public void afterProcess() {
-        printer.printMessage("processstartdone", players.size());
+        logger.logMessage("processstartdone", players.size());
     }
 }

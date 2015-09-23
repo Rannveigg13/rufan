@@ -5,7 +5,9 @@ import is.ru.honn.rufan.domain.Team;
 import java.util.List;
 
 /**
- * Created by Notandi on 21-Sep-15.
+ * @author Hrafnkell Baldursson
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
  */
 public interface TeamService
 {

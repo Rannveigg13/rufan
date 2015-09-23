@@ -11,13 +11,11 @@ import java.util.logging.Logger;
 
 /**
  * @author Hrafnkell Baldursson
- * @author Rannveig Guðmundsdóttir
- * @date 22/9/2015.
- * @version 1.0
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
  */
 public class PlayerServiceStub implements PlayerService
 {
-
     Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
     private List<Player> players = new ArrayList<Player>();
     TeamServiceStub tss = new TeamServiceStub();
