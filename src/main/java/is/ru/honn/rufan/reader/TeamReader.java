@@ -9,18 +9,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-public class TeamReader
+public class TeamReader extends AbstractReader
 {
+
   public Object parse(String content)
   {
-    String tmp;
-
     // Root object
     JSONObject jsonObject = (JSONObject) JSONValue.parse(content);
 
@@ -79,27 +72,10 @@ public class TeamReader
       venue.setCity(((String) jvenue.get("city")));
 
       team.setVenue(venue);
+
+      readHandler.read(i, team);
     }
 
     return league;
   }
-
-
-  // Format example 2015-08-21T16:19:30.6967613Z
-  protected Date convertDate(String strDate)
-  {
-    DateFormat format = new SimpleDateFormat("yyyy.MM.dd'T'HH:mm:ss", Locale.ENGLISH);
-    Date date = null;
-
-    try
-    {
-      date = format.parse(strDate);
-    }
-    catch (ParseException e)
-    {
-      System.out.println("FAIL");
-    }
-    return date;
-  }
-
 }

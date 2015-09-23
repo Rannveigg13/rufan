@@ -1,7 +1,10 @@
 package is.ru.honn.rufan.service;
 
 /**
- * Created by Notandi on 21-Sep-15.
+ * @author Hrafnkell Baldursson
+ * @author Rannveig Guðmundsdóttir
+ * @date 22/9/2015.
+ * @version 1.0
  */
 public class ServiceException extends RuntimeException
 {

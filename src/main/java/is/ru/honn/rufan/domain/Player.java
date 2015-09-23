@@ -1,21 +1,28 @@
 package is.ru.honn.rufan.domain;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Notandi on 21-Sep-15.
+ * @author Hrafnkell Baldursson
+ * @author Rannveig Guðmundsdóttir
+ * @date 22/9/2015.
+ * @version 1.0
  */
 public class Player {
+
     protected int playerId;
+    protected int teamId;
     protected String firstName;
     protected String lastName;
     protected int height;
     protected int weight;
     protected Date birthDate;
     protected Country nationality;
-    protected int teamId;
     protected List<Position> positions = new ArrayList<Position>();
 
     public int getPlayerId() { return playerId; }

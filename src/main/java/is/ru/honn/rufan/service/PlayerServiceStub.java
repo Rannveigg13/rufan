@@ -1,5 +1,7 @@
 package is.ru.honn.rufan.service;
 
+import is.ru.honn.rufan.Observer.PlayerServiceSubject;
+import is.ru.honn.rufan.Observer.Subject;
 import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.domain.Team;
 
@@ -8,7 +10,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Created by Notandi on 21-Sep-15.
+ * @author Hrafnkell Baldursson
+ * @author Rannveig Guðmundsdóttir
+ * @date 22/9/2015.
+ * @version 1.0
  */
 public class PlayerServiceStub implements PlayerService
 {
@@ -16,6 +21,7 @@ public class PlayerServiceStub implements PlayerService
     Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
     private List<Player> players = new ArrayList<Player>();
     TeamServiceStub tss = new TeamServiceStub();
+    Subject subject = new PlayerServiceSubject();
 
     /***
      * Finds and returns the player with the given player ID,
@@ -73,15 +79,10 @@ public class PlayerServiceStub implements PlayerService
     public int addPlayer(Player player) throws ServiceException{
 
         if(player == null) throw new ServiceException("Player is not assigned");
-        if(player.getPlayerId() < 0) throw new ServiceException("Player id cannot be below zero");
-        if(player.getTeamId() < 0) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " team id cannot be below zero");
-        if(player.getBirthDate() == null) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " birth date is not assigned.");
-        if(player.getFirstName() == null) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " first name is not assigned.");
-        if(player.getLastName() == null) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) + " last name is not assigned.");
-        if(player.getHeight() <= 0) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " height cannot be zero or below.");
-        if(player.getNationality() == null) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " Country is not assigned.");
-        if(player.getPositions() == null) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " List<Position> is not assigned.");
-        if(player.getWeight() <= 0) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " weight cannot be zero or below.");
+        if(player.getFirstName() == null) player.setFirstName("");
+        if((Integer)player.getPlayerId() == null) throw new ServiceException("Player " + player.getFirstName() + " " + player.getLastName() + " playerId cannot be null");
+        if((Integer)player.getTeamId() == null ) throw new ServiceException("Player " + String.valueOf(player.getPlayerId()) +  " teamId cannot be null");
+
 
         for(Player p: players)
         {
@@ -95,7 +96,10 @@ public class PlayerServiceStub implements PlayerService
 
         players.add(player);
         log.info("New player '" + player.getFirstName() + " " + player.getLastName() + "' added");
+
+        // Notify all observers
+        subject.setUpdateData(player);
+
         return players.size()-1;
     }
-
 }

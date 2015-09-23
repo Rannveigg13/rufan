@@ -7,13 +7,16 @@ import java.util.*;
 import java.util.logging.Logger;
 
 /**
- * Created by Notandi on 21-Sep-15.
+ * @author Hrafnkell Baldursson
+ * @author Rannveig Guðmundsdóttir
+ * @date 22/9/2015.
+ * @version 1.0
  */
 public class TeamServiceStub implements TeamService
 {
     Logger log = Logger.getLogger(TeamServiceStub.class.getName());
-    private Map<Integer, ArrayList<Team>> leagueTeamRelation = new HashMap<Integer, ArrayList<Team>>();
-    private List<League> leagues = new ArrayList<League>();
+    private static Map<Integer, ArrayList<Team>> leagueTeamRelation = new HashMap<Integer, ArrayList<Team>>();
+    private static List<League> leagues = new ArrayList<League>();
 
     /***
      * Makes a relation between the given team and the league with the given league ID.

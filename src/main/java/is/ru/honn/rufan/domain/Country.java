@@ -1,13 +1,21 @@
 package is.ru.honn.rufan.domain;
 
 /**
- * Created by Notandi on 21-Sep-15.
+ * @author Hrafnkell Baldursson
+ * @author Rannveig Guðmundsdóttir
+ * @date 22/9/2015.
+ * @version 1.0
  */
 public class Country {
+
     private int countryId;
     private String name;
     private String abbreviation;
 
+    /***
+     * Getter for the unique ID of the country.
+     * @return This country's country ID. Should never be null.
+     */
     public int getCountryId() { return countryId; }
 
     public String getName() { return name; }
