@@ -1,6 +1,8 @@
 package is.ru.honn.rufan.reader;
 
-
+/**
+ * This class represents a Reader Exception
+ */
 public class ReaderException extends Exception
 {
   public ReaderException()

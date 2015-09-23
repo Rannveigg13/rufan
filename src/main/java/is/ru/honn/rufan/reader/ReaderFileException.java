@@ -1,7 +1,9 @@
 package is.ru.honn.rufan.reader;
 
 /**
- * Created by Hrafnkell on 23/9/2015.
+ * @author Hrafnkell Baldursson
+ * @author Rannveig Gudmundsdottir
+ * @version 1.0 22/9/2015.
  */
 public class ReaderFileException extends ReaderException {
 

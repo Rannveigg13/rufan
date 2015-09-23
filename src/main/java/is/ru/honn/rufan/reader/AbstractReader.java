@@ -15,12 +15,19 @@ import java.util.Locale;
  * @author Hrafnkell Baldursson
  * @author Rannveig Gudmundsdottir
  * @version 1.0 22/9/2015.
+ *
+ * This class represents an abstract reader
  */
 abstract public class AbstractReader implements Reader {
 
     ReadHandler readHandler;
     private String uri;
 
+    /**
+     * Reads the JSON file from url
+     * @return a JSON object
+     * @throws ReaderException if the readHandler is not set
+     */
     public Object read() throws ReaderException{
         if(readHandler == null){
             throw new ReaderException("readHandler must be set");
@@ -39,10 +46,18 @@ abstract public class AbstractReader implements Reader {
         return parse(json);
     }
 
+    /**
+     * Sets the URI
+     * @param URI The URI to be set
+     */
     public void setURI(String URI){
         this.uri = URI;
     }
 
+    /**
+     * Sets the readHandler
+     * @param _readHandler The readHandler to set
+     */
     public void setReadHandler(ReadHandler _readHandler){
         this.readHandler = _readHandler;
     }
