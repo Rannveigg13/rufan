@@ -59,4 +59,6 @@ public abstract class Subject implements SubjectInterface {
             o.update();
         }
     }
+
+    public List<Observer> getObservers(){return this.observers;}
 }

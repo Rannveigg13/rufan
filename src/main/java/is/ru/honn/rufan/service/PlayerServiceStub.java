@@ -30,6 +30,13 @@ public class PlayerServiceStub implements PlayerService
     public void addObserver(){
         observer = new PlayerServiceObserver(subject);
     }
+
+    /**
+     * This method allows tests to get the subject
+     * @return This services subject
+     */
+    public Subject getSubject(){ return this.subject; }
+
     /***
      * Finds and returns the player with the given player ID,
      * if the player doesn't exist; null is returned

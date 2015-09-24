@@ -38,7 +38,7 @@ public class TestPlayerService extends TestCase {
 
         // Test if player 1 is the second entry in the players
         // list of the service
-        assertEquals(2, pos+1);
+        assertEquals(4, pos+1);
 
         // Test if player1 exists
         Player testExistingPlayer = playerService.getPlayer(13);
